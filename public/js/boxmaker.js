@@ -2,8 +2,8 @@ $(function () {
     $("#box-form").change(function () {
         var text = $("#box-text").val();
         var label = $("#box-label").val();
-        var spacing = $("#box-spacing").val();
-        var offset = $("#box-offset").val();
+        var spacing = Number($("#box-spacing").val());
+        var offset = Number($("#box-offset").val());
         
         $("#box").val(boxify(text, label, spacing, offset));
     });
@@ -48,11 +48,7 @@ $(function () {
             box += spacer(offset);
             box += text.substring(text.length - i, text.length - i + 1);
             
-            if (text.length % 2 === 0) {
-                box += spacer(text.length * spacing + 2);
-            } else {
-                box += spacer(text.length * spacing + 3);
-            }
+            box += spacer(spaceText(text, spacing, false).length - 2);
             
             box += text.substring(i - 1, i);
             box += spacer(text.length - 2 - (text.length - i));

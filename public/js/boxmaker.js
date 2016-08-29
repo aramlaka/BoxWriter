@@ -4,12 +4,18 @@ $(function () {
         var label = $("#box-label").val();
         var spacing = Number($("#box-spacing").val());
         var offset = Number($("#box-offset").val());
+        var spaceChar = $("#box-space-char").val();
         
-        $("#box").val(boxify(text, label, spacing, offset));
+        $("#box-render").text("");
+        $("#box-render").append(boxify(text, label, spacing, offset, spaceChar));
     });
     
-    function boxify (text, label, spacing, offset) {
+    function boxify (text, label, spacing, offset, spaceChar) {
         var box = "";
+        
+        if (!spaceChar) {
+            var spaceChar = " ";
+        }
         
         if (!spacing) {
             var spacing = 2;
@@ -21,23 +27,23 @@ $(function () {
         
         for (var i = text.length - 1; i > 0; i--) {
             box += spacer(offset);
-            box += spacer(i);
+            box += spacer(i, spaceChar);
             
             if (i+1 === text.length) {
-                box += spaceText(text, spacing, true);
+                box += spaceText(text, spacing, true, spaceChar);
             } else {
                 box += text.substring(i, i+1);
-                box += spacer((text.length * (spacing + 1) - (spacing + 2)));
+                box += spacer((text.length * (spacing + 1) - (spacing + 2)), spaceChar);
                 box += text.substring(text.length - (i+1), text.length - i);
-                box += spacer(text.length - i - 2);
+                box += spacer(text.length - i - 2, spaceChar);
                 box += text.substring(text.length - (i+1), text.length - i);
             }
             
             if (i === 1) {
                 box += "\n";
                 box += spacer(offset);
-                box += spaceText(text, spacing, false);
-                box += spacer(text.length - 2);
+                box += spaceText(text, spacing, false, spaceChar);
+                box += spacer(text.length - 2, spaceChar);
                 box += text.substring(text.length - i, text.length);
             }
             
@@ -48,10 +54,10 @@ $(function () {
             box += spacer(offset);
             box += text.substring(text.length - i, text.length - i + 1);
             
-            box += spacer(spaceText(text, spacing, false).length - 2);
+            box += spacer(spaceText(text, spacing, false).length - 2, spaceChar);
             
             box += text.substring(i - 1, i);
-            box += spacer(text.length - 2 - (text.length - i));
+            box += spacer(text.length - 2 - (text.length - i), spaceChar);
             
             if (i > 1) {
                 box += text.substring(i - 1, i);
@@ -61,7 +67,7 @@ $(function () {
         }
         
         box += spacer(offset);
-        box += spaceText(text, spacing, true);
+        box += spaceText(text, spacing, true, spaceChar);
         
         console.log(box);
         

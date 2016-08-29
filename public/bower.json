@@ -1,0 +1,17 @@
+{
+  "name": "boxwriter",
+  "description": "",
+  "main": "",
+  "authors": [
+    "aramlaka"
+  ],
+  "license": "MIT",
+  "homepage": "boxwriter.firebaseapp.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

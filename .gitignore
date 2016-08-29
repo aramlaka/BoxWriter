@@ -1,0 +1,4 @@
+public/bower_components/*
+.firebaserc
+firebase-debug.log
+firebase.json
